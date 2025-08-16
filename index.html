@@ -2,114 +2,25 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard ComercialX</title>
-  <link rel="stylesheet" href="../assets/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ComercialX Cockpit — Navegador Maestro</title>
+  <link rel="stylesheet" href="cockpit.css">
 </head>
 <body>
-  <h1>📊 Dashboard de Validación Remota</h1>
+  <h1>🧭 ComercialX Cockpit — Navegador Maestro</h1>
+  <p>Accede a todos los módulos cockpitizados desde un solo lugar:</p>
 
-  <label for="filtro">🏪 Tipo de tienda:</label>
-  <select id="filtro" onchange="filtrar()">
-    <option value="todas">Todas</option>
-    <option value="demo">Demo</option>
-    <option value="online">Online</option>
-    <option value="fisica">Física</option>
-    <option value="hibrida">Híbrida</option>
-  </select>
+  <ul>
+    <li>🔎 <a href="dashboard-comunitario.html">Dashboard Comunitario</a> <img class="badge" src="badge-deploy.svg" alt="Deploy OK" height="20"></li>
+    <li>🖼️ <a href="generador-badges.html">Generador de Badges SVG</a> <img class="badge" src="badge-html.svg" alt="HTML OK" height="20"></li>
+    <li>📤 <a href="exportador-csv.js">Exportador CSV</a> <img class="badge" src="badge-json.svg" alt="JSON OK" height="20"></li>
+    <li>✅ <a href="validador.html">Validador de Rutas</a> <img class="badge" src="badge-json.svg" alt="JSON OK" height="20"></li>
+    <li>📊 <a href="visor-estado.html">Visor de Estado</a> <img class="badge" src="badge-svg.svg" alt="SVG OK" height="20"></li>
+    <li>🧬 <a href="generador-json.html">Generador JSON</a> <img class="badge" src="badge-json.svg" alt="JSON OK" height="20"></li>
+    <li>🌐 <a href="visor-federado.html">Visor Federado</a> <img class="badge" src="badge-deploy.svg" alt="Federado OK" height="20"></li>
+    <li>📘 <a href="README.md">README cockpitizado</a></li>
+  </ul>
 
-  <table id="tabla">
-    <thead>
-      <tr>
-        <th>Ruta</th>
-        <th>Estado</th>
-        <th>Detalles</th>
-        <th>Tienda</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
-  <button onclick="exportarCSV()">📤 Exportar CSV</button>
-
-  <h2>📁 Exportar logs por tienda</h2>
-  <button onclick="exportarJSON('demo')">Demo</button>
-  <button onclick="exportarJSON('online')">Online</button>
-  <button onclick="exportarJSON('fisica')">Física</button>
-  <button onclick="exportarJSON('hibrida')">Híbrida</button>
-
-  <script>
-    const rutas = [
-      { url: '../index.html', tienda: 'demo' },
-      { url: '../exports/onboarding/onboarding.log', tienda: 'hibrida' },
-      { url: '../data/inventario.json', tienda: 'online' },
-      { url: '../data/flujo-caja.json', tienda: 'fisica' },
-      { url: '../badge-deploy.svg', tienda: 'demo' }
-    ];
-
-    const tabla = document.querySelector('#tabla tbody');
-    const resultados = {};
-    const csv = [];
-
-    rutas.forEach(r => {
-      fetch(r.url, { method: 'HEAD' })
-        .then(res => {
-          const estado = res.status;
-          const ok = estado === 200 ? '✅ OK' : '❌ Error';
-          const log = {
-            ruta: r.url,
-            estado,
-            detalles: ok,
-            timestamp: new Date().toISOString()
-          };
-          if (!resultados[r.tienda]) resultados[r.tienda] = [];
-          resultados[r.tienda].push(log);
-          csv.push(`"${r.url}",${estado},"${ok}",${r.tienda}`);
-          tabla.innerHTML += `<tr data-tienda="${r.tienda}">
-            <td>${r.url}</td><td>${estado}</td><td>${ok}</td><td>${r.tienda}</td>
-          </tr>`;
-        })
-        .catch(() => {
-          const log = {
-            ruta: r.url,
-            estado: 'N/A',
-            detalles: '⚠️ Inválido',
-            timestamp: new Date().toISOString()
-          };
-          if (!resultados[r.tienda]) resultados[r.tienda] = [];
-          resultados[r.tienda].push(log);
-          csv.push(`"${r.url}","N/A","⚠️ Inválido",${r.tienda}`);
-          tabla.innerHTML += `<tr data-tienda="${r.tienda}">
-            <td>${r.url}</td><td>N/A</td><td>⚠️ Inválido</td><td>${r.tienda}</td>
-          </tr>`;
-        });
-    });
-
-    function filtrar() {
-      const tipo = document.getElementById('filtro').value;
-      document.querySelectorAll('#tabla tbody tr').forEach(row => {
-        row.style.display = (tipo === 'todas' || row.dataset.tienda === tipo) ? '' : 'none';
-      });
-    }
-
-    function exportarCSV() {
-      const filas = ['Ruta,Estado,Detalles,Tienda', ...csv];
-      const blob = new Blob([filas.join('\n')], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'auditoria-remota.csv';
-      a.click();
-    }
-
-    function exportarJSON(tienda) {
-      const logs = resultados[tienda] || [];
-      const blob = new Blob([JSON.stringify(logs, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `logs-${tienda}.json`;
-      a.click();
-    }
-  </script>
+  <p>🚀 Publicado en: <code>https://acserne.github.io/comercialx-demo/index.html</code></p>
 </body>
 </html>

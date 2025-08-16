@@ -2,81 +2,103 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard Comunitario: Auditoría Federada</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Comunitario</title>
   <style>
-    body { font-family: sans-serif; padding: 1rem; background: #f0f0f0; }
-    h1 { margin-bottom: 0.5rem; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; }
-    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
-    th { background: #eee; }
-    button { padding: 0.4rem 0.8rem; margin: 1rem 0; }
+    body {
+      font-family: sans-serif;
+      padding: 1rem;
+      background: #fdfdfd;
+      color: #333;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    select {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      font-size: 1rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    th {
+      background-color: #0078d4;
+      color: white;
+    }
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    .ok {
+      color: green;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <h1>Dashboard Comunitario: Auditoría Federada</h1>
-  <p>🔄 Validar todas las tiendas &nbsp; 📤 <button id="exportarCSV">Exportar CSV</button></p>
+  <h1>🤝 Dashboard Comunitario</h1>
+  <p>Estado técnico por colaborador, entorno y módulo. Exportable y federado.</p>
 
-  <table id="tablaAuditoria">
+  <label for="filtroColaborador">👤 Filtrar por colaborador</label>
+  <select id="filtroColaborador" onchange="filtrar()">
+    <option value="todos">Todos</option>
+    <option value="valdez">Valdez</option>
+    <option value="ana">Ana</option>
+    <option value="leo">Leo</option>
+  </select>
+
+  <table id="tablaComunitaria" aria-label="Tabla comunitaria de validación">
     <thead>
       <tr>
-        <th>Ruta</th>
-        <th>Tipo</th>
+        <th>Colaborador</th>
+        <th>Módulo</th>
         <th>Estado</th>
-        <th>Tienda</th>
-        <th>Entorno</th>
         <th>Badge</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>index.html</td>
-        <td>html</td>
-        <td>✅ OK</td>
-        <td>demo</td>
-        <td>demo</td>
-        <td></td>
+      <tr data-colaborador="valdez">
+        <td>Valdez</td>
+        <td>generador-json.html</td>
+        <td class="ok">✅ OK</td>
+        <td><img src="badges/valdez-json-ok.svg" alt="json:ok" title="Validación OK por Valdez"></td>
       </tr>
-      <tr>
-        <td>badge-deploy.svg</td>
-        <td>svg</td>
-        <td>✅ OK</td>
-        <td>demo</td>
-        <td>demo</td>
-        <td><img src="badge-deploy.svg" alt="Badge deploy" height="20"></td>
+      <tr data-colaborador="ana">
+        <td>Ana</td>
+        <td>validador.html</td>
+        <td class="error">❌ Error</td>
+        <td><img src="badges/ana-validador-error.svg" alt="validador:error" title="Error en módulo de Ana"></td>
       </tr>
-      <tr>
-        <td>data/inventario.json</td>
-        <td>json</td>
-        <td>✅ OK</td>
-        <td>demo</td>
-        <td>demo</td>
-        <td></td>
+      <tr data-colaborador="leo">
+        <td>Leo</td>
+        <td>dashboard-validacion.html</td>
+        <td class="ok">✅ OK</td>
+        <td><img src="badges/leo-dashboard-ok.svg" alt="dashboard:ok" title="Validación OK por Leo"></td>
       </tr>
     </tbody>
   </table>
 
   <script>
-    // 📤 Exportador CSV cockpitizado
-    document.getElementById("exportarCSV").addEventListener("click", () => {
-      const filas = Array.from(document.querySelectorAll("#tablaAuditoria tbody tr"));
-      const encabezados = Array.from(document.querySelectorAll("#tablaAuditoria thead th")).map(th => th.textContent.trim());
-      const datos = filas.map(tr =>
-        Array.from(tr.querySelectorAll("td")).map(td => td.textContent.trim())
-      );
-
-      let csv = encabezados.join(",") + "\n";
-      datos.forEach(row => {
-        csv += row.map(val => `"${val}"`).join(",") + "\n";
+    function filtrar() {
+      const filtro = document.getElementById("filtroColaborador").value;
+      const filas = document.querySelectorAll("#tablaComunitaria tbody tr");
+      filas.forEach(fila => {
+        const colaborador = fila.getAttribute("data-colaborador");
+        fila.style.display = (filtro === "todos" || colaborador === filtro) ? "" : "none";
       });
-
-      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "auditoria-dashboard.csv";
-      a.click();
-      URL.revokeObjectURL(url);
-    });
+    }
   </script>
 </body>
 </html>
