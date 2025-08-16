@@ -8,35 +8,17 @@
 <body>
   <h1>📎 Generador de Código Embed para Badges SVG</h1>
 
-  <label for="url">🔗 URL del badge SVG:</label><br>
-  <input type="text" id="url" size="80" placeholder="https://acserne.github.io/comercialx-demo/badges/badge-demo-ok.svg" /><br><br>
+  <input id="badge-url" type="text" size="80" placeholder="🔗 URL del badge SVG">
+  <button id="btn-generar">⚙️ Generar Embed</button>
+  <p id="log-estado">⏳ Esperando validación…</p>
 
-  <button onclick="generar()">⚙️ Generar Embed</button>
+  <img id="preview-svg" style="max-width:300px; margin-top:1em;" alt="Vista previa del badge">
 
-  <div id="preview" style="margin-top:1em;"></div>
-  <div id="codigo" style="margin-top:1em;"></div>
+  <h4>📎 Código Embed</h4>
+  <b>HTML:</b><br><textarea id="embed-html" rows="2" cols="80" readonly></textarea><br>
+  <b>Markdown:</b><br><textarea id="embed-md" rows="2" cols="80" readonly></textarea><br>
+  <b>JSX:</b><br><textarea id="embed-jsx" rows="2" cols="80" readonly></textarea><br>
 
-  <script>
-    function generar() {
-      const url = document.getElementById('url').value.trim();
-      if (!url.endsWith('.svg')) {
-        alert("❌ URL inválida. Debe terminar en .svg");
-        return;
-      }
-
-      document.getElementById('preview').innerHTML = `<h3>🔍 Vista previa:</h3><img src="${url}" alt="Badge" />`;
-
-      const html = `<img src="${url}" alt="Badge" />`;
-      const markdown = `![Badge](${url})`;
-      const iframe = `<iframe src="${url}" width="180" height="40" frameborder="0"></iframe>`;
-
-      document.getElementById('codigo').innerHTML = `
-        <h3>📋 Código embebible:</h3>
-        <b>HTML:</b><br><textarea rows="2" cols="80">${html}</textarea><br>
-        <b>Markdown:</b><br><textarea rows="2" cols="80">${markdown}</textarea><br>
-        <b>Iframe:</b><br><textarea rows="2" cols="80">${iframe}</textarea><br>
-      `;
-    }
-  </script>
+  <script src="embed-generator.js"></script>
 </body>
 </html>
