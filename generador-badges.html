@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Generador de Badges SVG</title>
+  <style>
+    body { font-family: sans-serif; padding: 1rem; background: #f9f9f9; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
+    input[type="text"] { width: 100%; }
+    .embed-preview { background: #fff; padding: 0.5rem; border: 1px dashed #aaa; margin-top: 0.5rem; }
+    button { padding: 0.3rem 0.6rem; margin-top: 0.3rem; }
+  </style>
+</head>
+<body>
+  <h1>🔧 Generador de Badges SVG por Ruta</h1>
+  <p>Lee el dashboard comunitario y genera código embebible para cada badge.</p>
+
+  <table id="badgeTable">
+    <thead>
+      <tr>
+        <th>Ruta</th>
+        <th>Badge</th>
+        <th>Embed HTML</th>
+        <th>Copiar</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const rutas = [
+      { ruta: "index.html", badge: "" },
+      { ruta: "badge-deploy.svg", badge: "badge-deploy.svg" },
+      { ruta: "data/inventario.json", badge: "" }
+    ];
+
+    const baseURL = "https://acserne.github.io/comercialx-demo/";
+
+    const tbody = document.querySelector("#badgeTable tbody");
+
+    rutas.forEach(({ ruta, badge }) => {
+      const badgeURL = badge ? baseURL + badge : "";
+      const embedHTML = badgeURL ? `<img src="${badgeURL}" alt="Badge ${ruta}">` : "—";
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${ruta}</td>
+        <td>${badge || "—"}</td>
+        <td><input type="text" value='${embedHTML}' readonly></td>
+        <td><button onclick="copyEmbed(this)">📋 Copiar</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    function copyEmbed(btn) {
+      const input = btn.parentElement.previousElementSibling.querySelector("input");
+      input.select();
+      document.execCommand("copy");
+      btn.textContent = "✅ Copiado";
+      setTimeout(() => btn.textContent = "📋 Copiar", 1500);
+    }
+  </script>
+</body>
+</html>

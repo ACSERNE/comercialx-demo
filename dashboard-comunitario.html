@@ -2,22 +2,21 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>🌐 Dashboard Comunitario ComercialX</title>
+  <title>Dashboard Comunitario: Auditoría Federada</title>
   <style>
-    body { font-family: sans-serif; padding: 2em; background: #f0f0f0; }
-    table { border-collapse: collapse; width: 100%; margin-top: 1em; }
-    th, td { border: 1px solid #ccc; padding: 0.5em; }
+    body { font-family: sans-serif; padding: 1rem; background: #f0f0f0; }
+    h1 { margin-bottom: 0.5rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; background: #fff; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; }
     th { background: #eee; }
-    .ok { color: green; font-weight: bold; }
-    .error { color: red; font-weight: bold; }
-    .badge { height: 20px; }
+    button { padding: 0.4rem 0.8rem; margin: 1rem 0; }
   </style>
 </head>
 <body>
-  <h1>🌐 Dashboard Comunitario: Auditoría Federada</h1>
-  <button onclick="cargar()">🔄 Validar todas las tiendas</button>
-  <button onclick="exportar()">📤 Exportar CSV</button>
-  <table>
+  <h1>Dashboard Comunitario: Auditoría Federada</h1>
+  <p>🔄 Validar todas las tiendas &nbsp; 📤 <button id="exportarCSV">Exportar CSV</button></p>
+
+  <table id="tablaAuditoria">
     <thead>
       <tr>
         <th>Ruta</th>
@@ -28,73 +27,56 @@
         <th>Badge</th>
       </tr>
     </thead>
-    <tbody id="tabla"></tbody>
+    <tbody>
+      <tr>
+        <td>index.html</td>
+        <td>html</td>
+        <td>✅ OK</td>
+        <td>demo</td>
+        <td>demo</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>badge-deploy.svg</td>
+        <td>svg</td>
+        <td>✅ OK</td>
+        <td>demo</td>
+        <td>demo</td>
+        <td><img src="badge-deploy.svg" alt="Badge deploy" height="20"></td>
+      </tr>
+      <tr>
+        <td>data/inventario.json</td>
+        <td>json</td>
+        <td>✅ OK</td>
+        <td>demo</td>
+        <td>demo</td>
+        <td></td>
+      </tr>
+    </tbody>
   </table>
 
-<script>
-const tiendas = [
-  { nombre: 'demo', url: 'https://acserne.github.io/comercialx-demo/data/validador-rutas-demo.json' },
-  // Agrega más tiendas aquí
-];
+  <script>
+    // 📤 Exportador CSV cockpitizado
+    document.getElementById("exportarCSV").addEventListener("click", () => {
+      const filas = Array.from(document.querySelectorAll("#tablaAuditoria tbody tr"));
+      const encabezados = Array.from(document.querySelectorAll("#tablaAuditoria thead th")).map(th => th.textContent.trim());
+      const datos = filas.map(tr =>
+        Array.from(tr.querySelectorAll("td")).map(td => td.textContent.trim())
+      );
 
-let resultados = [];
+      let csv = encabezados.join(",") + "\n";
+      datos.forEach(row => {
+        csv += row.map(val => `"${val}"`).join(",") + "\n";
+      });
 
-async function validarRuta(r) {
-  const url = 'https://acserne.github.io/comercialx-demo/' + r.ruta;
-  try {
-    const res = await fetch(url);
-    const estado = res.status === 200 ? '✅ OK' : '❌ Error';
-    const badge = `https://img.shields.io/badge/${r.ruta.replace(/\W+/g, '-')}-${encodeURIComponent(estado)}-${estado === '✅ OK' ? 'brightgreen' : 'red'}.svg`;
-    return { ...r, estado, badge, timestamp: new Date().toISOString() };
-  } catch {
-    const estado = '❌ Error';
-    const badge = `https://img.shields.io/badge/${r.ruta.replace(/\W+/g, '-')}-${encodeURIComponent(estado)}-red.svg`;
-    return { ...r, estado, badge, timestamp: new Date().toISOString() };
-  }
-}
-
-async function cargar() {
-  resultados = [];
-  document.getElementById('tabla').innerHTML = '';
-  for (const tienda of tiendas) {
-    try {
-      const res = await fetch(tienda.url);
-      const rutas = await res.json();
-      for (const r of rutas) {
-        const validado = await validarRuta(r);
-        resultados.push(validado);
-        render(validado);
-      }
-    } catch (e) {
-      console.error(`❌ Error al cargar ${tienda.nombre}:`, e);
-    }
-  }
-}
-
-function render(r) {
-  const tr = document.createElement('tr');
-  tr.innerHTML = `
-    <td>${r.ruta}</td>
-    <td>${r.tipo}</td>
-    <td class="${r.estado.includes('OK') ? 'ok' : 'error'}">${r.estado}</td>
-    <td>${r.tienda}</td>
-    <td>${r.entorno}</td>
-    <td><img class="badge" src="${r.badge}"></td>
-  `;
-  document.getElementById('tabla').appendChild(tr);
-}
-
-function exportar() {
-  const encabezado = 'Ruta,Tipo,Estado,Tienda,Entorno,Timestamp\n';
-  const filas = resultados.map(r => `${r.ruta},${r.tipo},${r.estado},${r.tienda},${r.entorno},${r.timestamp}`).join('\n');
-  const blob = new Blob([encabezado + filas], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'auditoria-comunitaria.csv';
-  a.click();
-  URL.revokeObjectURL(url);
-}
-</script>
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "auditoria-dashboard.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+  </script>
 </body>
 </html>
