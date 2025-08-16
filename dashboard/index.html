@@ -7,74 +7,79 @@
 </head>
 <body>
   <h1>📊 Dashboard de Validación Remota</h1>
+
+  <label for="filtro">🏪 Tipo de tienda:</label>
+  <select id="filtro" onchange="filtrar()">
+    <option value="todas">Todas</option>
+    <option value="demo">Demo</option>
+    <option value="online">Online</option>
+    <option value="fisica">Física</option>
+    <option value="hibrida">Híbrida</option>
+  </select>
+
   <table id="tabla">
     <thead>
       <tr>
         <th>Ruta</th>
         <th>Estado</th>
         <th>Detalles</th>
+        <th>Tienda</th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
+
   <button onclick="exportarCSV()">📤 Exportar CSV</button>
 
   <script>
     const rutas = [
-      'https://comercialx.net/demo/index.html',
-      'https://comercialx.net/demo/exports/onboarding/onboarding.log',
-      'https://comercialx.net/demo/data/inventario.json',
-      'https://comercialx.net/demo/data/flujo-caja.json',
-      'https://comercialx.net/demo/badge.svg'
+      { url: '../index.html', tienda: 'demo' },
+      { url: '../exports/onboarding/onboarding.log', tienda: 'hibrida' },
+      { url: '../data/inventario.json', tienda: 'online' },
+      { url: '../data/flujo-caja.json', tienda: 'fisica' },
+      { url: '../badge-deploy.svg', tienda: 'demo' }
     ];
 
     const tabla = document.querySelector('#tabla tbody');
     const resultados = [];
 
-    rutas.forEach(ruta => {
-      fetch(ruta, { method: 'HEAD' })
+    rutas.forEach(r => {
+      fetch(r.url, { method: 'HEAD' })
         .then(res => {
           const estado = res.status;
           const ok = estado === 200 ? '✅ OK' : '❌ Error';
-          resultados.push({ ruta, estado, ok });
-          tabla.innerHTML += `<tr><td>${ruta}</td><td>${estado}</td><td>${ok}</td></tr>`;
+          resultados.push({ ...r, estado, ok });
+          tabla.innerHTML += `<tr data-tienda="${r.tienda}">
+            <td>${r.url}</td><td>${estado}</td><td>${ok}</td><td>${r.tienda}</td>
+          </tr>`;
         })
         .catch(() => {
-          resultados.push({ ruta, estado: 'N/A', ok: '⚠️ Inválido' });
-          tabla.innerHTML += `<tr><td>${ruta}</td><td>N/A</td><td>⚠️ Inválido</td></tr>`;
+          resultados.push({ ...r, estado: 'N/A', ok: '⚠️ Inválido' });
+          tabla.innerHTML += `<tr data-tienda="${r.tienda}">
+            <td>${r.url}</td><td>N/A</td><td>⚠️ Inválido</td><td>${r.tienda}</td>
+          </tr>`;
         });
     });
 
+    function filtrar() {
+      const tipo = document.getElementById('filtro').value;
+      document.querySelectorAll('#tabla tbody tr').forEach(row => {
+        row.style.display = (tipo === 'todas' || row.dataset.tienda === tipo) ? '' : 'none';
+      });
+    }
+
     function exportarCSV() {
-      const filas = ['Ruta,Estado,Detalles'];
+      const filas = ['Ruta,Estado,Detalles,Tienda'];
       resultados.forEach(r => {
-        filas.push(`"${r.ruta}",${r.estado},"${r.ok}"`);
+        filas.push(`"${r.url}",${r.estado},"${r.ok}",${r.tienda}`);
       });
       const blob = new Blob([filas.join('\n')], { type: 'text/csv' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'validacion-remota.csv';
+      a.download = 'auditoria-remota.csv';
       a.click();
     }
   </script>
 </body>
 </html>
-
-<h2>📋 Auditoría de Deploy</h2>
-<ul>
-  <li><a href="../exports/deploy/deploy.log">Log técnico</a></li>
-  <li><a href="../badge-deploy.svg">Badge de estado</a></li>
-</ul>
-
-<h2>📋 Auditoría de Deploy</h2>
-<ul>
-  <li><a href="../exports/deploy/deploy.log">Log técnico</a></li>
-  <li><a href="../badge-deploy.svg">Badge de estado</a></li>
-</ul>
-
-<h2>📋 Auditoría de Deploy</h2>
-<ul>
-  <li><a href="../exports/deploy/deploy.log">Log técnico</a></li>
-  <li><a href="../badge-deploy.svg">Badge de estado</a></li>
-</ul>
