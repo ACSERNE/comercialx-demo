@@ -1,0 +1,15 @@
+{
+  "modulos": [
+    {
+      "id": "docker-validator",
+      "nombre": "Docker Validator",
+      "tienda": "comercialx",
+      "entorno": "backend",
+      "ruta": "./módulos/docker-validator/validador-docker.html",
+      "badge": "https://img.shields.io/badge/docker:vulns-0-green.svg",
+      "exportacion": ["CSV", "JSON"],
+      "embed": "./módulos/docker-validator/embed-docker.md",
+      "log": "./módulos/docker-validator/log-docker.md"
+    }
+  ]
+}
