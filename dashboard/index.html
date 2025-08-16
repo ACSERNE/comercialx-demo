@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard ComercialX</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <h1>📊 Dashboard de Validación Remota</h1>
+  <table id="tabla">
+    <thead>
+      <tr>
+        <th>Ruta</th>
+        <th>Estado</th>
+        <th>Detalles</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <button onclick="exportarCSV()">📤 Exportar CSV</button>
+
+  <script>
+    const rutas = [
+      'https://comercialx.net/demo/index.html',
+      'https://comercialx.net/demo/exports/onboarding/onboarding.log',
+      'https://comercialx.net/demo/data/inventario.json',
+      'https://comercialx.net/demo/data/flujo-caja.json',
+      'https://comercialx.net/demo/badge.svg'
+    ];
+
+    const tabla = document.querySelector('#tabla tbody');
+    const resultados = [];
+
+    rutas.forEach(ruta => {
+      fetch(ruta, { method: 'HEAD' })
+        .then(res => {
+          const estado = res.status;
+          const ok = estado === 200 ? '✅ OK' : '❌ Error';
+          resultados.push({ ruta, estado, ok });
+          tabla.innerHTML += `<tr><td>${ruta}</td><td>${estado}</td><td>${ok}</td></tr>`;
+        })
+        .catch(() => {
+          resultados.push({ ruta, estado: 'N/A', ok: '⚠️ Inválido' });
+          tabla.innerHTML += `<tr><td>${ruta}</td><td>N/A</td><td>⚠️ Inválido</td></tr>`;
+        });
+    });
+
+    function exportarCSV() {
+      const filas = ['Ruta,Estado,Detalles'];
+      resultados.forEach(r => {
+        filas.push(`"${r.ruta}",${r.estado},"${r.ok}"`);
+      });
+      const blob = new Blob([filas.join('\n')], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'validacion-remota.csv';
+      a.click();
+    }
+  </script>
+</body>
+</html>
