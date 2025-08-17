@@ -1,15 +1,31 @@
 {
   "modulos": [
     {
-      "id": "docker-validator",
-      "nombre": "Docker Validator",
-      "tienda": "comercialx",
-      "entorno": "backend",
-      "ruta": "./módulos/docker-validator/validador-docker.html",
-      "badge": "https://img.shields.io/badge/docker:vulns-0-green.svg",
-      "exportacion": ["CSV", "JSON"],
-      "embed": "./módulos/docker-validator/embed-docker.md",
-      "log": "./módulos/docker-validator/log-docker.md"
+      "nombre": "Validación Chile",
+      "tienda": "Santiago",
+      "entorno": "Producción",
+      "badge": "badges/chile.svg",
+      "ruta": "visor-chile.html",
+      "log": "log-chile.html",
+      "embed": "embed-chile.html"
+    },
+    {
+      "nombre": "Validación México",
+      "tienda": "CDMX",
+      "entorno": "Staging",
+      "badge": "badges/mexico.svg",
+      "ruta": "visor-mexico.html",
+      "log": "log-mexico.html",
+      "embed": "embed-mexico.html"
+    },
+    {
+      "nombre": "Validación España",
+      "tienda": "Madrid",
+      "entorno": "QA",
+      "badge": "badges/espana.svg",
+      "ruta": "visor-espana.html",
+      "log": "log-espana.html",
+      "embed": "embed-espana.html"
     }
   ]
 }

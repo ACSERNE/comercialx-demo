@@ -4,19 +4,19 @@
   <meta charset="UTF-8" />
   <title>ComercialX Cockpit</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body { font-family: sans-serif; padding: 2rem; background: #fff; }
-    h1 { color: #2c3e50; }
-    .modulo { border: 1px solid #ccc; padding: 1rem; margin: 1rem 0; }
-    .badge { float: right; }
-    .links a { margin-right: 1rem; }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <h1>🚀 ComercialX Cockpit</h1>
   <p>Resumen técnico por módulo, entorno y operación.</p>
 
   <div id="resumen"></div>
+
+  <div class="enlaces-globales">
+    <a href="visor-comunitario.html" target="_blank">🔍 Visor</a>
+    <a href="log-monitor.html" target="_blank">📘 Log</a>
+    <a href="embed-docker.html" target="_blank">📎 Docker</a>
+  </div>
 
   <script>
     fetch('dashboard-maestro.json')

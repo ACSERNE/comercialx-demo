@@ -1,20 +1,39 @@
-# 🧮 ComercialX API
+# 🚀 ComercialX Cockpit
 
-Backend cockpitizado para ingreso remoto de productos y flujo de caja.
+Arquitectura federada para validación remota, auditoría visual y despliegue multiplataforma.
 
-## Endpoints
+---
 
-- `POST /api/productos` → Ingreso de producto
-- `POST /api/caja` → Registro de movimiento
-- `GET /api/productos` → Listado de productos
-- `GET /api/caja` → Flujo de caja
+## 🧩 Módulos federados
 
-## Deploy remoto
+Cada módulo incluye:
 
-Listo para Railway, Render o Fly.io. Incluye CORS, JSON y logs técnicos.
+- 🔍 Visor visual por país y entorno
+- 📘 Log técnico reproducible
+- 📎 Embed con badge SVG y trazabilidad
 
-## Comando de inicio
+---
+
+## 🌍 Países integrados
+
+- 🇨🇱 Chile (Producción)
+- 🇲🇽 México (Staging)
+- 🇪🇸 España (QA)
+
+---
+
+## 📦 Artefactos comunitarios
+
+- `visor-comunitario.html`: federación visual global
+- `log-monitor.html`: log técnico extendido
+- `embed-docker.html`: integración Docker validada
+
+---
+
+## 🛠️ Deploy multiplataforma
 
 ```bash
-npm install
-npm start
+git checkout gh-pages
+git add .
+git commit -m "Deploy cockpitizado"
+git push origin gh-pages
