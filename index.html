@@ -1,66 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>ComercialX Cockpit</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css" />
-<style>
-
-  .fail { color: red; font-weight: bold; }
-
-</style>
+  <meta charset="UTF-8">
+  <title>ComercialX Cockpit – Resumen Técnico</title>
+  <style>
+    body { font-family: sans-serif; background: #f9f9f9; padding: 2em; }
+    h1, h2 { color: #222; }
+    .modulo { background: #fff; border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; }
+    .badge { height: 24px; vertical-align: middle; margin-right: 0.5em; }
+    .acciones a { margin-right: 1em; text-decoration: none; }
+    .deploy { background: #fff; border: 1px solid #ccc; padding: 1em; }
+  </style>
 </head>
 <body>
-  <h1>🚀 ComercialX Cockpit</h1>
+  <h1>📦 ComercialX Cockpit</h1>
   <p>Resumen técnico por módulo, entorno y operación.</p>
 
-  <div id="resumen"></div>
-
-  <div class="enlaces-globales">
-    <a href="visor-comunitario.html" target="_blank">🔍 Visor</a>
-    <a href="log-monitor.html" target="_blank">📘 Log</a>
-    <a href="embed-docker.html" target="_blank">📎 Docker</a>
+  <div class="modulo">
+    <h2>🇨🇱 Validación Chile <img src="badges/badge-chile.svg" class="badge" alt="Chile"></h2>
+    <p>Tienda: Santiago | Entorno: Producción</p>
+    <div class="acciones">
+      🔍 <a href="visor-chile.html">Visor</a>
+      📘 <a href="logs/log-chile.txt">Log</a>
+      📎 <a href="embeds/embed-chile.html">Embed</a>
+    </div>
   </div>
 
-  <script>
-    fetch('dashboard-maestro.json')
-      .then(res => res.json())
-      .then(json => {
-        const contenedor = document.getElementById('resumen');
-        json.modulos.forEach(m => {
-          const div = document.createElement('div');
-          div.className = "modulo";
-          div.innerHTML = `
-            <h2>${m.nombre} <img class="badge" src="${m.badge}" alt="badge" /></h2>
-            <p><strong>Tienda:</strong> ${m.tienda} | <strong>Entorno:</strong> ${m.entorno}</p>
-            <div class="links">
-              <a href="${m.ruta}" target="_blank">🔍 Visor</a>
-              <a href="${m.log}" target="_blank">📘 Log</a>
-              <a href="${m.embed}" target="_blank">📎 Embed</a>
-            </div>
-          `;
-          contenedor.appendChild(div);
-        });
-      });
-  </script>
-<h2>🛠️ Monitor de Deploy – ComercialX</h2>
+  <div class="modulo">
+    <h2>🇲🇽 Validación México <img src="badges/badge-mexico.svg" class="badge" alt="México"></h2>
+    <p>Tienda: CDMX | Entorno: Staging</p>
+    <div class="acciones">
+      🔍 <a href="visor-mexico.html">Visor</a>
+      📘 <a href="logs/log-mexico.txt">Log</a>
+      📎 <a href="embeds/embed-mexico.html">Embed</a>
+    </div>
+  </div>
 
-<p>Último intento de deploy en <strong>gh-pages</strong>:</p>
+  <div class="modulo">
+    <h2>🇪🇸 Validación España <img src="badges/badge-españa.svg" class="badge" alt="España"></h2>
+    <p>Tienda: Madrid | Entorno: QA</p>
+    <div class="acciones">
+      🔍 <a href="visor-espana.html">Visor</a>
+      📘 <a href="logs/log-espana.txt">Log</a>
+      📎 <a href="embeds/embed-espana.html">Embed</a>
+    </div>
+  </div>
 
-<ul>
+  <div class="deploy">
+    <h2>🛠️ Monitor de Deploy – ComercialX</h2>
+    <p>Últimos intentos de deploy en <code>gh-pages</code>:</p>
+    <ul>
+      <li class="fail">❌ <strong>#34</strong> – Fallido</li>
+      <li class="fail">❌ <strong>#33</strong> – Fallido</li>
+      <li class="fail">❌ <strong>#32</strong> – Fallido</li>
+      <li class="fail">❌ <strong>#28</strong> – Fallido</li>
+    </ul>
+    <p>🔗 <a href="https://github.com/ACSERNE/comercialx-demo/actions">Ver historial completo en GitHub Actions</a></p>
+  </div>
 
-  <li class="fail">❌ <strong>#34</strong> – Fallido</li>
-
-  <li class="fail">❌ <strong>#33</strong> – Fallido</li>
-
-  <li class="fail">❌ <strong>#32</strong> – Fallido</li>
-
-  <li class="fail">❌ <strong>#28</strong> – Fallido</li>
-
-</ul>
-
-<p>🔗 <a href="https://github.com/ACSERNE/comercialx-demo/actions">Ver historial completo en GitHub Actions</a></p>
-
+  <hr>
+  <p>Federado por ComercialX Cockpit – Validación remota, trazabilidad visual y auditoría extendida</p>
 </body>
 </html>
