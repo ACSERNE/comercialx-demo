@@ -2,63 +2,63 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>ComercialX Cockpit – Resumen Técnico</title>
+  <title>Visor Cockpitizado ComercialX</title>
   <style>
-    body { font-family: sans-serif; background: #f9f9f9; padding: 2em; }
-    h1, h2 { color: #222; }
-    .modulo { background: #fff; border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; }
-    .badge { height: 24px; vertical-align: middle; margin-right: 0.5em; }
-    .acciones a { margin-right: 1em; text-decoration: none; }
-    .deploy { background: #fff; border: 1px solid #ccc; padding: 1em; }
+    body { font-family: sans-serif; background: #f4f4f4; padding: 2em; }
+    h1, h2 { color: #333; }
+    .badge-grid { display: flex; gap: 2em; flex-wrap: wrap; margin-bottom: 2em; }
+    .badge-item { text-align: center; background: #fff; padding: 1em; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .badge-item img { height: 40px; }
+    .badge-item p { margin: 0.5em 0 0; font-weight: bold; }
+    ul { list-style: none; padding-left: 0; }
+    li { margin-bottom: 0.5em; }
+    a { text-decoration: none; color: #007acc; }
   </style>
 </head>
 <body>
-  <h1>📦 ComercialX Cockpit</h1>
-  <p>Resumen técnico por módulo, entorno y operación.</p>
+  <h1>🌎 Estado de Validación por País</h1>
+  <div class="badge-grid">
 
-  <div class="modulo">
-    <h2>🇨🇱 Validación Chile <img src="badges/badge-chile.svg" class="badge" alt="Chile"></h2>
-    <p>Tienda: Santiago | Entorno: Producción</p>
-    <div class="acciones">
-      🔍 <a href="visor-chile.html">Visor</a>
-      📘 <a href="logs/log-chile.txt">Log</a>
-      📎 <a href="embeds/embed-chile.html">Embed</a>
+    <div class="badge-item">
+      <img src="badges/CL.svg" alt="CL Badge">
+      <p>CL</p>
+    </div>
+
+    <div class="badge-item">
+      <img src="badges/MX.svg" alt="MX Badge">
+      <p>MX</p>
+    </div>
+
+    <div class="badge-item">
+      <img src="badges/ES.svg" alt="ES Badge">
+      <p>ES</p>
+    </div>
+</div>
+  <h2>⚙️ Estado del Workflow</h2>
+  <div class="badge-grid">
+    <div class="badge-item">
+      <img src="badges/workflow.svg" alt="Workflow Badge">
+      <p>GitHub Actions</p>
     </div>
   </div>
 
-  <div class="modulo">
-    <h2>🇲🇽 Validación México <img src="badges/badge-mexico.svg" class="badge" alt="México"></h2>
-    <p>Tienda: CDMX | Entorno: Staging</p>
-    <div class="acciones">
-      🔍 <a href="visor-mexico.html">Visor</a>
-      📘 <a href="logs/log-mexico.txt">Log</a>
-      📎 <a href="embeds/embed-mexico.html">Embed</a>
+  <h2>🌐 Publicación Multiplataforma</h2>
+  <div class="badge-grid">
+    <div class="badge-item">
+      <img src="badges/publish.svg" alt="Publish Badge">
+      <p>GitHub Pages / Netlify / Railway</p>
     </div>
   </div>
 
-  <div class="modulo">
-    <h2>🇪🇸 Validación España <img src="badges/badge-españa.svg" class="badge" alt="España"></h2>
-    <p>Tienda: Madrid | Entorno: QA</p>
-    <div class="acciones">
-      🔍 <a href="visor-espana.html">Visor</a>
-      📘 <a href="logs/log-espana.txt">Log</a>
-      📎 <a href="embeds/embed-espana.html">Embed</a>
-    </div>
-  </div>
-
-  <div class="deploy">
-    <h2>🛠️ Monitor de Deploy – ComercialX</h2>
-    <p>Últimos intentos de deploy en <code>gh-pages</code>:</p>
-    <ul>
-      <li class="fail">❌ <strong>#34</strong> – Fallido</li>
-      <li class="fail">❌ <strong>#33</strong> – Fallido</li>
-      <li class="fail">❌ <strong>#32</strong> – Fallido</li>
-      <li class="fail">❌ <strong>#28</strong> – Fallido</li>
-    </ul>
-    <p>🔗 <a href="https://github.com/ACSERNE/comercialx-demo/actions">Ver historial completo en GitHub Actions</a></p>
-  </div>
-
-  <hr>
-  <p>Federado por ComercialX Cockpit – Validación remota, trazabilidad visual y auditoría extendida</p>
+  <h2>📄 Exportación técnica y logs</h2>
+  <ul>
+    <li><a href="../build-status.csv">Estado técnico por país y entorno</a></li>
+    <li><a href="../workflow-log.json">Log del workflow</a></li>
+    <li><a href="../publish-status.csv">Estado de publicación</a></li>
+    <li><a href="../publish-log.json">Log técnico de publicación</a></li>
+<li><a href="../logs/CL.json">Log CL</a></li>
+<li><a href="../logs/MX.json">Log MX</a></li>
+<li><a href="../logs/ES.json">Log ES</a></li>
+</ul>
 </body>
 </html>
