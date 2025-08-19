@@ -6,15 +6,22 @@
   <style>
     body { font-family: sans-serif; background: #f4f4f4; padding: 2em; }
     h1 { color: #333; }
-    .badge { margin: 1em 0; }
-    .log, .csv { margin-bottom: 2em; }
-    pre { background: #fff; padding: 1em; border: 1px solid #ccc; overflow-x: auto; }
-    a { color: #007acc; text-decoration: none; }
+    nav { margin-bottom: 2em; }
+    nav a { margin-right: 1em; color: #007acc; text-decoration: none; font-weight: bold; }
+    section { margin-bottom: 2em; }
+    ul { list-style: none; padding-left: 0; }
+    li { margin-bottom: 0.5em; }
   </style>
 </head>
 <body>
   <h1>📊 Dashboard ComercialX Cockpit</h1>
 
+  <nav>
+    <a href="index.html">🔍 Vista Visual</a>
+    <a href="dashboard-status.html">📡 Estado Técnico</a>
+  </nav>
+
+  <!-- Secciones visuales existentes aquí -->
   <section class="badge">
     <h2>🧪 Estado de Publicación</h2>
     <img src="badges/publish-debug.svg" alt="Badge publicación">
@@ -24,45 +31,7 @@
     </ul>
   </section>
 
-  <section class="badge">
-    <h2>🔍 Sincronización Maestro vs Template</h2>
-    <img src="badges/maestro-sync.svg" alt="Badge sincronización">
-    <ul>
-      <li><a href="maestro-sync-log.json">Log de diferencias</a></li>
-    </ul>
-  </section>
+  <!-- ... resto del contenido visual ... -->
 
-  <section class="badge">
-    <h2>🌐 Validación Remota por País</h2>
-
-    <h3>🇨🇱 Chile</h3>
-    <img src="badges/val-chile.svg" alt="Chile">
-    <ul>
-      <li><a href="../val-chile.csv">CSV</a></li>
-      <li><a href="../val-chile-log.json">Log</a></li>
-    </ul>
-
-    <h3>🇲🇽 México</h3>
-    <img src="badges/val-mexico.svg" alt="México">
-    <ul>
-      <li><a href="../val-mexico.csv">CSV</a></li>
-      <li><a href="../val-mexico-log.json">Log</a></li>
-    </ul>
-
-    <h3>🇪🇸 España</h3>
-    <img src="badges/val-espana.svg" alt="España">
-    <ul>
-      <li><a href="../val-espana.csv">CSV</a></li>
-      <li><a href="../val-espana-log.json">Log</a></li>
-    </ul>
-  </section>
-
-  <section class="csv">
-    <h2>📦 Artefactos Federados</h2>
-    <ul>
-      <li><a href="dashboard.csv">dashboard.csv</a></li>
-      <li><a href="dashboard-maestro.json">dashboard-maestro.json</a></li>
-    </ul>
-  </section>
 </body>
 </html>
