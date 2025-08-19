@@ -2,84 +2,39 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard ComercialX</title>
-  <link rel="stylesheet" href="../assets/style.css">
+  <title>Visor Cockpitizado ComercialX</title>
+  <style>
+    body { font-family: sans-serif; background: #f4f4f4; padding: 2em; }
+    h1 { color: #333; }
+    .badge-grid { display: flex; gap: 2em; flex-wrap: wrap; }
+    .badge-item { text-align: center; background: #fff; padding: 1em; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .badge-item img { height: 40px; }
+    .badge-item p { margin: 0.5em 0 0; font-weight: bold; }
+  </style>
 </head>
 <body>
-  <h1>📊 Dashboard de Validación Remota</h1>
+  <h1>🏁 Estado de Validación por País</h1>
+  <div class="badge-grid">
+    <div class="badge-item">
+      <img src="badges/CL.svg" alt="CL Badge">
+      <p>Chile</p>
+    </div>
+    <div class="badge-item">
+      <img src="badges/MX.svg" alt="MX Badge">
+      <p>México</p>
+    </div>
+    <div class="badge-item">
+      <img src="badges/ES.svg" alt="ES Badge">
+      <p>España</p>
+    </div>
+  </div>
 
-  <label for="filtro">🏪 Tipo de tienda:</label>
-  <select id="filtro" onchange="filtrar()">
-    <option value="todas">Todas</option>
-    <option value="demo">Demo</option>
-    <option value="online">Online</option>
-    <option value="fisica">Física</option>
-    <option value="hibrida">Híbrida</option>
-  </select>
-
-  <table id="tabla">
-    <thead>
-      <tr>
-        <th>Ruta</th>
-        <th>Estado</th>
-        <th>Detalles</th>
-        <th>Tienda</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
-  <button onclick="exportarCSV()">📤 Exportar CSV</button>
-
-  <script>
-    const rutas = [
-      { url: '../index.html', tienda: 'demo' },
-      { url: '../exports/onboarding/onboarding.log', tienda: 'hibrida' },
-      { url: '../data/inventario.json', tienda: 'online' },
-      { url: '../data/flujo-caja.json', tienda: 'fisica' },
-      { url: '../badge-deploy.svg', tienda: 'demo' }
-    ];
-
-    const tabla = document.querySelector('#tabla tbody');
-    const resultados = [];
-
-    rutas.forEach(r => {
-      fetch(r.url, { method: 'HEAD' })
-        .then(res => {
-          const estado = res.status;
-          const ok = estado === 200 ? '✅ OK' : '❌ Error';
-          resultados.push({ ...r, estado, ok });
-          tabla.innerHTML += `<tr data-tienda="${r.tienda}">
-            <td>${r.url}</td><td>${estado}</td><td>${ok}</td><td>${r.tienda}</td>
-          </tr>`;
-        })
-        .catch(() => {
-          resultados.push({ ...r, estado: 'N/A', ok: '⚠️ Inválido' });
-          tabla.innerHTML += `<tr data-tienda="${r.tienda}">
-            <td>${r.url}</td><td>N/A</td><td>⚠️ Inválido</td><td>${r.tienda}</td>
-          </tr>`;
-        });
-    });
-
-    function filtrar() {
-      const tipo = document.getElementById('filtro').value;
-      document.querySelectorAll('#tabla tbody tr').forEach(row => {
-        row.style.display = (tipo === 'todas' || row.dataset.tienda === tipo) ? '' : 'none';
-      });
-    }
-
-    function exportarCSV() {
-      const filas = ['Ruta,Estado,Detalles,Tienda'];
-      resultados.forEach(r => {
-        filas.push(`"${r.url}",${r.estado},"${r.ok}",${r.tienda}`);
-      });
-      const blob = new Blob([filas.join('\n')], { type: 'text/csv' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'auditoria-remota.csv';
-      a.click();
-    }
-  </script>
+  <h2>📄 Exportación técnica</h2>
+  <ul>
+    <li><a href="../build-status.csv">Ver estado técnico CSV</a></li>
+    <li><a href="../logs/CL.json">Log Chile</a></li>
+    <li><a href="../logs/MX.json">Log México</a></li>
+    <li><a href="../logs/ES.json">Log España</a></li>
+  </ul>
 </body>
 </html>
