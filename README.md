@@ -81,3 +81,11 @@ Compatible con GitHub Pages, Netlify y Railway.
 Reproducible en CLI, web y entorno federado.
 
 ---
+
+## 🔗 Enlaces Auditables
+
+- [Dashboard Técnico](dashboard.csv)
+- [JSON Maestro Normalizado](dashboard-maestro-normalizado.json)
+- [Visor Submódulo](visor-submodulo.html)
+- [Estado Federado](status.md)
+- [Log de Validación](log-validacion.csv)
