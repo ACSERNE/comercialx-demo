@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+echo "🛡️ Verificando y restaurando maestro si está incompleto..."
+node scripts/dashboard-reset.js
+
 echo "🔧 Ejecutando render cockpitizado..."
 node scripts/dashboard-render.js
 
