@@ -1,13 +1,10 @@
 {
-  // 🧭 Diagnóstico de publicación federada
   "diagnostico_publicacion": {
-    "status": "OK", // "OK" o "FAIL"
-    "badge": "badges/publish.svg", // Badge SVG dinámico por estado
-    "csv": "../publish.csv",       // Exportación técnica auditada
-    "log": "../publish-log.json"   // Log técnico reproducible
+    "status": "OK",
+    "badge": "badges/publish.svg",
+    "csv": "../publish.csv",
+    "log": "../publish-log.json"
   },
-
-  // 🌐 Validación remota por país y entorno
   "validacion_remota": {
     "Chile": {
       "entorno": "produccion",
@@ -31,8 +28,6 @@
       "log": "../val-espana-log.json"
     }
   },
-
-  // 📊 Exportaciones técnicas federadas
   "artefactos": {
     "dashboard_csv": "dashboard.csv",
     "dashboard_json": "dashboard-maestro.json",
