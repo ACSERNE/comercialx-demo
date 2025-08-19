@@ -1,0 +1,9 @@
+{
+  ...
+  "diagnostico_publicacion": {
+    "status": "FAIL",
+    "badge": "badges/publish-debug.svg",
+    "csv": "../publish-debug.csv",
+    "log": "../publish-debug.json"
+  }
+}
