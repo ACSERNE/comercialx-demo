@@ -1,5 +1,4 @@
 {
-  ...
   "diagnostico_publicacion": {
     "status": "FAIL",
     "badge": "badges/publish-debug.svg",

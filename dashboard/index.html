@@ -2,63 +2,67 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Visor Cockpitizado ComercialX</title>
+  <title>📊 Dashboard ComercialX Cockpit</title>
   <style>
     body { font-family: sans-serif; background: #f4f4f4; padding: 2em; }
-    h1, h2 { color: #333; }
-    .badge-grid { display: flex; gap: 2em; flex-wrap: wrap; margin-bottom: 2em; }
-    .badge-item { text-align: center; background: #fff; padding: 1em; border-radius: 8px; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
-    .badge-item img { height: 40px; }
-    .badge-item p { margin: 0.5em 0 0; font-weight: bold; }
-    ul { list-style: none; padding-left: 0; }
-    li { margin-bottom: 0.5em; }
-    a { text-decoration: none; color: #007acc; }
+    h1 { color: #333; }
+    .badge { margin: 1em 0; }
+    .log, .csv { margin-bottom: 2em; }
+    pre { background: #fff; padding: 1em; border: 1px solid #ccc; overflow-x: auto; }
+    a { color: #007acc; text-decoration: none; }
   </style>
 </head>
 <body>
-  <h1>🌎 Estado de Validación por País</h1>
-  <div class="badge-grid">
+  <h1>📊 Dashboard ComercialX Cockpit</h1>
 
-    <div class="badge-item">
-      <img src="badges/CL.svg" alt="CL Badge">
-      <p>CL</p>
-    </div>
+  <section class="badge">
+    <h2>🧪 Estado de Publicación</h2>
+    <img src="badges/publish-debug.svg" alt="Badge publicación">
+    <ul>
+      <li><a href="../publish-debug.csv">CSV técnico</a></li>
+      <li><a href="../publish-debug.json">Log técnico</a></li>
+    </ul>
+  </section>
 
-    <div class="badge-item">
-      <img src="badges/MX.svg" alt="MX Badge">
-      <p>MX</p>
-    </div>
+  <section class="badge">
+    <h2>🔍 Sincronización Maestro vs Template</h2>
+    <img src="badges/maestro-sync.svg" alt="Badge sincronización">
+    <ul>
+      <li><a href="maestro-sync-log.json">Log de diferencias</a></li>
+    </ul>
+  </section>
 
-    <div class="badge-item">
-      <img src="badges/ES.svg" alt="ES Badge">
-      <p>ES</p>
-    </div>
-</div>
-  <h2>⚙️ Estado del Workflow</h2>
-  <div class="badge-grid">
-    <div class="badge-item">
-      <img src="badges/workflow.svg" alt="Workflow Badge">
-      <p>GitHub Actions</p>
-    </div>
-  </div>
+  <section class="badge">
+    <h2>🌐 Validación Remota por País</h2>
 
-  <h2>🌐 Publicación Multiplataforma</h2>
-  <div class="badge-grid">
-    <div class="badge-item">
-      <img src="badges/publish.svg" alt="Publish Badge">
-      <p>GitHub Pages / Netlify / Railway</p>
-    </div>
-  </div>
+    <h3>🇨🇱 Chile</h3>
+    <img src="badges/val-chile.svg" alt="Chile">
+    <ul>
+      <li><a href="../val-chile.csv">CSV</a></li>
+      <li><a href="../val-chile-log.json">Log</a></li>
+    </ul>
 
-  <h2>📄 Exportación técnica y logs</h2>
-  <ul>
-    <li><a href="../build-status.csv">Estado técnico por país y entorno</a></li>
-    <li><a href="../workflow-log.json">Log del workflow</a></li>
-    <li><a href="../publish-status.csv">Estado de publicación</a></li>
-    <li><a href="../publish-log.json">Log técnico de publicación</a></li>
-<li><a href="../logs/CL.json">Log CL</a></li>
-<li><a href="../logs/MX.json">Log MX</a></li>
-<li><a href="../logs/ES.json">Log ES</a></li>
-</ul>
+    <h3>🇲🇽 México</h3>
+    <img src="badges/val-mexico.svg" alt="México">
+    <ul>
+      <li><a href="../val-mexico.csv">CSV</a></li>
+      <li><a href="../val-mexico-log.json">Log</a></li>
+    </ul>
+
+    <h3>🇪🇸 España</h3>
+    <img src="badges/val-espana.svg" alt="España">
+    <ul>
+      <li><a href="../val-espana.csv">CSV</a></li>
+      <li><a href="../val-espana-log.json">Log</a></li>
+    </ul>
+  </section>
+
+  <section class="csv">
+    <h2>📦 Artefactos Federados</h2>
+    <ul>
+      <li><a href="dashboard.csv">dashboard.csv</a></li>
+      <li><a href="dashboard-maestro.json">dashboard-maestro.json</a></li>
+    </ul>
+  </section>
 </body>
 </html>
